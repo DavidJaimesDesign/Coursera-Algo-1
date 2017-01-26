@@ -7,6 +7,7 @@ public class Percolation {
     public Percolation(int n)             // create n-by-n grid, with all sites blocked
    {
        int size = n * n;
+       ufGrid = WeightedQuickUnionUF(size);
        Boolean[] genGrid = new boolean[size];
        for(int i = 0;i < size; i++);
            genGrid[i] = false;
@@ -21,6 +22,7 @@ public class Percolation {
        int rowLength = Math.sqrt(grid.length);
        formatedCoords = (formatedRow * rowLength) + formatedCol;
    }
+   
    public    void open(int row, int col)    // open site (row, col) if it is not open already
    {
        int coord = formatCoords(row, col);
