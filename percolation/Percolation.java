@@ -18,9 +18,15 @@ public class Percolation {
     private void union(int i, int j)  {
         wquf.union(i, j);   
     }
-   
+    private int formatedCoords(int row,int col){
+        int formatedCoords;
+        int formatedRow = row - 1;
+        int formatedColumn = col - 1;
+        formatedCoords = (formatedRow * n) + formatedColumn;
+        return formatedCoords;
+    }
     public    void open(int row, int col)  {    // open site (row, col) if it is not open already
-        int pos = (row * n) + col;
+        int pos = formatedCoords(row, col);
         if (!isOpen(row, col)) {
             grid[pos] = true;
        
@@ -54,15 +60,18 @@ public class Percolation {
     }
    
     public boolean isOpen(int row, int col)  {  // is site (row, col) open?
-   
         return !isFull(row, col);
     }
     public boolean isFull(int row, int col) {  // is site (row, col) full?
-        return !grid[row * n + col];
+        return !grid[formatedCoords(row, col)];
     }    
     public     int numberOfOpenSites() {       // number of open sites
-        // TODO
-        return 4;
+        int count = 0;
+        for(int i = 0; i < grid.length; i++) {
+            if(grid[i] == true) count ++;
+        }
+        
+        return count;
     }
     public boolean percolates() {              // does the system percolate?
         return wquf.connected(0, n * n + 1);
