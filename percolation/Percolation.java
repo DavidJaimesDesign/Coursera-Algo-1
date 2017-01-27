@@ -21,6 +21,8 @@ public class Percolation {
        int formatedColumn = col - 1;
        int rowLength = Math.sqrt(grid.length);
        formatedCoords = (formatedRow * rowLength) + formatedCol;
+       if ( formatedCoords <= 0 || formatedCoords > grid.length) throw new IndexOutOfBoundsException("row index i out of bounds");
+       return formatedCoords;
    }
    
    public    void open(int row, int col)    // open site (row, col) if it is not open already
