@@ -1,14 +1,16 @@
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
-
+import edu.princeton.cs.algs4.StdOut;
 public class Percolation {
     private int n;
     private boolean[] grid;
     private WeightedQuickUnionUF wquf;
+    private int bottom;
    
     public Percolation(int n) {               // create n-by-n grid, with all sites blocked
         this.n = n;
         this.grid = new boolean[n*n];
         this.wquf = new WeightedQuickUnionUF(n*n + 2);
+        this.bottom = n * n + 1;
        
         for (int i = 0; i < n*n; i++) {
             this.grid[i] = false;
@@ -25,45 +27,48 @@ public class Percolation {
         formatedCoords = (formatedRow * n) + formatedColumn;
         return formatedCoords;
     }
+    
+    private int getQFIndex(int row, int col){
+        return (n * (row - 1) + col);
+    }
     public    void open(int row, int col)  {    // open site (row, col) if it is not open already
         int pos = formatedCoords(row, col);
-        if (!isOpen(row, col)) {
-            grid[pos] = true;
+        grid[pos] = true;
+        
+        if (row == 1){
+            this.union(getQFIndex(row, col), 0); 
+        }
+        
+        if (row == n){
+            this.union(getQFIndex(row, col), bottom);
+        }
        
-           // check for open adjacent grid positions;
-            if (row > 0) { // row above
-                if (isOpen(row-1, col)) {
-                    this.union(pos + 1, pos-n + 1);
-                }
-            } 
-            else { // on the top we union with the top virtual element
-                this.union(0, pos + 1);
-            }
-       
-            if (row < n-1) { // row below
-                if (isOpen(row+1, col)) {
-                    this.union(pos + 1, pos+n + 1);
-                }
-            } 
-            else { // on the bottom, we union with the bottom virtual element
-                this.union(n*n+1, pos+1);
-            }
-       
-            if (col > 0 && isOpen(row, col-1)) { // column to the left
-                this.union(pos + 1, pos-1 + 1);
-            }
-       
-            if (col < n-1 && isOpen(row, col+1)) { // column to the right
-                this.union(pos + 1, pos+1 + 1);
-            } 
+        if(col > 1 && isOpen(row, col-1)){
+            this.union(getQFIndex(row,col),getQFIndex(row, col - 1));;
+        }
+
+        if(col < n && isOpen(row, col+1)){
+            this.union(getQFIndex(row, col),getQFIndex(row, col + 1));;
+        }
+
+        if(row > 1 && isOpen(row - 1, col)){
+            this.union(getQFIndex(row, col),getQFIndex(row -1, col));;
+        }
+
+        if(row < n &&isOpen(row + 1, col)){
+            this.union(getQFIndex(row, col), getQFIndex(row + 1, col));
         }
     }
    
     public boolean isOpen(int row, int col)  {  // is site (row, col) open?
-        return !isFull(row, col);
+        return grid[formatedCoords(row, col)];
     }
     public boolean isFull(int row, int col) {  // is site (row, col) full?
-        return !grid[formatedCoords(row, col)];
+        if(0 < row && row <= n && 0 < col && col <= n){
+            return wquf.connected(0, getQFIndex(row, col));
+        } else {
+            throw new IndexOutOfBoundsException();
+        }
     }    
     public     int numberOfOpenSites() {       // number of open sites
         int count = 0;
