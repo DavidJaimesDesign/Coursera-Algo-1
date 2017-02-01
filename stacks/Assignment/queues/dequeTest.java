@@ -23,7 +23,7 @@ public class dequeTest {
         d.addFirst(3.0);
         assertEquals(Double.valueOf(3.0),d.removeLast());
         d.addLast(4.0);
-        assertEquals(Double.valueOf(4.0),d.removeFirst());
+        assertEquals(Double.valueOf(3.0),d.removeFirst());
     }
 
     @Test
