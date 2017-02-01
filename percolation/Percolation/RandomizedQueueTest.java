@@ -15,21 +15,42 @@ public class RandomizedQueueTest {
 
     @Test
     public void add_elements_then_deque_random_remove(){
-
+         RandomQueue<Int> r = new RandomQueue<Int>();
+         for(int i = 0; i < 10; i++){
+           r.enqueque(i);  
+         }
+         assertEquals(10, r.size());//checks the size of the queue
+         
+         r.dequeue()
+         assertEquals(9, r.size());//checks that the queue has had an item deleted
+         
     }
-
+    @Test
+    public void test_sample(){
+      RandomQueue<Int> r = new RandomQueue<Int>();
+         for(int i = 0; i < 10; i++){
+           r.enqueque(i);  
+         }  
+         
+      r.sample();
+      assertEquals(10, r.size());//checks to make sure sample did not delete a random feature
+    }
+    
+    
     @Test
     public void testIterator(){
 
     }
     @Test(expected=java.util.NoSuchElementException.class)
     public void testDequeueOnEmpty(){
-
+        RandomQueue<Int> r = new RandomQueue<Int>();
+        r.dequeue();
     }
 
     @Test(expected=java.util.NoSuchElementException.class)
     public void testEnqueuesWithNull(){
-
+        RandomQueue<Int> r = new RandomQueue<Int>();
+        r.enqueue(null);
     }
 }
 
