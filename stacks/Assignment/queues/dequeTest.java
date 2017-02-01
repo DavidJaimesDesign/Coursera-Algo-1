@@ -41,5 +41,28 @@ public class DequeTest {
         }
         assertEquals(Double.valueOf(i), Double.valueOf(10));
     }
+    @Test(expected=java.util.NoSuchElementException.class)
+    public void testRemoveFirstOnEmpty(){
+        Deque<Double> q = new Deque<Double>;
+        q.removeFirst();
+    }
+
+    @Test(expected=java.util.NoSuchElementException.class)
+    public void testRemoveLastOnEmpty(){
+        Deque<Double> q = new Deque<Double>;
+        q.removeLast();
+    }
+
+    @Test(expected=java.util.NosSuchElementException.class)
+    public void testAddFirstWithNull(){
+        Deque<Double> q = new Deque<Double>;
+        q.addFirst(null);
+    }
+
+    @Test(expected=java.util.NosuchElementException.class)
+    public void testAddLastWithNull(){
+        Deque<Double> q = new Deque<Double>;
+        q.addLast(null);
+    }
 }
 
