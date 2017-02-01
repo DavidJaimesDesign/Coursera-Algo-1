@@ -2,7 +2,7 @@ import org.junit.Test;//import test class
 import static org.junit.Assert.*;//import assert methods
 import java.util.Iterator;//import iterator
 
-public class DequeTest {
+public class dequeTest {
     @Test
     public void testDeque(){
         Deque<Double> d = new Deque<Double>();//initialize a new deque isntance
@@ -37,31 +37,31 @@ public class DequeTest {
         for(Double cur: d){
             System.out.println(i);
             assertEquals(Double.valueOf(i), Double.valueOf(cur));
-            i++
+            i++;
         }
         assertEquals(Double.valueOf(i), Double.valueOf(10));
     }
     @Test(expected=java.util.NoSuchElementException.class)
     public void testRemoveFirstOnEmpty(){
-        Deque<Double> q = new Deque<Double>;
+        Deque<Double> q = new Deque<Double>();
         q.removeFirst();
     }
 
     @Test(expected=java.util.NoSuchElementException.class)
     public void testRemoveLastOnEmpty(){
-        Deque<Double> q = new Deque<Double>;
+        Deque<Double> q = new Deque<Double>();
         q.removeLast();
     }
 
-    @Test(expected=java.util.NosSuchElementException.class)
+    @Test(expected=java.util.NoSuchElementException.class)
     public void testAddFirstWithNull(){
-        Deque<Double> q = new Deque<Double>;
+        Deque<Double> q = new Deque<Double>();
         q.addFirst(null);
     }
 
-    @Test(expected=java.util.NosuchElementException.class)
+    @Test(expected=java.util.NoSuchElementException.class)
     public void testAddLastWithNull(){
-        Deque<Double> q = new Deque<Double>;
+        Deque<Double> q = new Deque<Double>();
         q.addLast(null);
     }
 }
