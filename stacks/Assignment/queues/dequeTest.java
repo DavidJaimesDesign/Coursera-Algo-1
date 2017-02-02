@@ -2,7 +2,7 @@ import org.junit.Test;//import test class
 import static org.junit.Assert.*;//import assert methods
 import java.util.Iterator;//import iterator
 
-public class dequeTest {
+public class DequeTest {
     @Test
     public void testDeque(){
         Deque<Double> d = new Deque<Double>();//initialize a new deque isntance
@@ -34,7 +34,7 @@ public class dequeTest {
         }
         assertEquals(d.size(), 10);
         
-        int i = 0;//had to change this to 10? 
+        int i = 0; 
         for(Double cur: d){
             System.out.println(i);
             assertEquals(Double.valueOf(i), Double.valueOf(cur));

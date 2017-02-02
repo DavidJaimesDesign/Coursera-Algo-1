@@ -6,7 +6,7 @@ import java.util.Iterator;//import iterator
 public class RandomizedQueueTest {
     @Test
     public void testrandonQueue_basic_creation(){
-        RandomQueue<Int> d = new RandomQueue<Int>();//initialize a new deque isntance
+        RandomizedQueue<Int> d = new RandomizedQueue<Int>();//initialize a new deque isntance
         assertTrue(d.isEmpty());//assert that d is empty
         d.enqueue(2);//add to the first in d
         assertFalse(d.isEmpty());//assert that d is not empty
@@ -21,7 +21,7 @@ public class RandomizedQueueTest {
          }
          assertEquals(10, r.size());//checks the size of the queue
          
-         r.dequeue()
+         r.dequeue();
          assertEquals(9, r.size());//checks that the queue has had an item deleted
          
     }
