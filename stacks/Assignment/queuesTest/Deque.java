@@ -22,8 +22,8 @@ public class Deque<E> implements Iterable<E> {
        }
    }
    
-   private class DequeIterator implements Iterator<E> {
-       Node<E> current = head;
+   private class DequeIterator<E> implements Iterator<E> {
+       private Node<E> current = head;
        
        public boolean hasNext(){
            return current != null;
