@@ -1,55 +1,65 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.lang.UnsupportedOperationException;
 import edu.princeton.cs.algs4.StdRandom;
 
 
-public class RandomizedQueue<E> implements Iterable<E> {
+public class RandomizedQueue<Item> implements Iterable<Item> {
     private int size;
-    private E[] queue;
-    private int capacity;
+    private  Item[] queue;
     
-    private class RandomizedQueueIterator implements Iterator<E>  {
-      E current = queue[size];
-      
-      public boolean hasNext(){
-           return current != null;
-       }
-       
-       public void remove(){
-           throw new UnsupportedOperationException();
-       }
-       
-       public E next(){
-           if(!hasNext()) throw new NoSuchElementException();
-           int random = StdRandom.uniform(size());
-           return queue[random];
-       }
-    }
-    
-    private void capIncrease(){
-      int newCap = capacity * 2;
-      E[] newQueue = (E[]) new Object[newCap];
-      for(int i = 0; i < size(); i ++){
-        newQueue[i] = queue[i];
+    private class RandomizedQueueIterator implements Iterator<Item>  {
+      private int current = 0;
+      private int[] shuffledIndexes = new int[size];
+        
+      public boolean hasNext() {
+        if(current == 0){
+          for(int i = 0; i < size; i++){
+            shuffledIndexes[i] = i;
+            StdRandom.shuffle(shuffledIndexes);
+          }
+        }
+        return current < size;
       }
       
-      queue = newQueue;
+      public Item next(){
+        if(current == 0){
+          for(int i = 0; i < size; i++){
+            shuffledIndexes[i] = i;
+            StdRandom.shuffle(shuffledIndexes);
+          }
+          if(current >= size || size() == 0) throw new java.util.NoSuchElementException();
+        }
+        return queue[shuffledIndexes[current++]];
+      }
+      public void remove(){
+        throw new java.lang.UnsupportedOperationException();
+      }
+    }
+    private void capIncrease(){
+      int newCap = queue.length * 2;
+      //System.out.println(newCap);
+      Item[] newQueue = (Item[]) new Object[newCap];
+      int index = 0;
+      for(Item i : queue){
+        newQueue[index++] = i;
+      }
+      this.queue = newQueue;
     }
     
     private void capDecrease(){
-      int newCap = capacity/4;
-      E[] newQueue = (E[]) new Object[newCap];
+      int newCap = queue.length/4;
+      Item[] newQueue = (Item[]) new Object[newCap];
       for(int i = 0; i < size(); i++){
         newQueue[i] = queue[i];
       }
       
-      queue = newQueue;
+      this.queue = newQueue;
     }
     
     public RandomizedQueue(){                 // construct an empty randomized queue
         this.size = 0;
-        this.capacity = 0;
-        this.queue = (E[]) new Object[capacity];
+        this.queue = (Item[]) new Object[1];
     }
 
     public boolean isEmpty(){                 // is the queue empty?
@@ -60,18 +70,30 @@ public class RandomizedQueue<E> implements Iterable<E> {
         return this.size;
     }
 
-    public void enqueue(E item){           // add the item
+    public void enqueue(Item item){           // add the item
        if(item == null) throw new NoSuchElementException();
+       if(size + 1 > queue.length){
+         capIncrease();
+       }
+       queue[size++] = item;
     }
 
-    public E dequeue(){                    // remove and return a random item
+    public Item dequeue(){                    // remove and return a random item
       if(size == 0) throw new NoSuchElementException();
-      return queue[0];
+      int i = StdRandom.uniform(size);
+      Item ret = queue[i];
+      queue[i] = queue[--size];
+      queue[size] = null;
+      if(queue.length/4 > size){
+        capDecrease();
+      }
+      
+      return ret;
     }
-    public E sample(){                     // return (but do not remove) a random item
+    public Item sample(){                     // return (but do not remove) a random item
       return queue[StdRandom.uniform(size)];
     }
-    public Iterator<E> iterator(){         // return an independent iterator over items in random order
+    public Iterator<Item> iterator(){         // return an independent iterator over items in random order
         return new RandomizedQueueIterator();
     }
     public static void main(String[] args){   // unit testing (optional)

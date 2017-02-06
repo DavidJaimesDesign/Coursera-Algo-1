@@ -1,4 +1,3 @@
-//test
 import org.junit.Test;//import test class
 import static org.junit.Assert.*;//import assert methods
 import java.util.Iterator;//import iterator
@@ -53,4 +52,3 @@ public class RandomizedQueueTest {
         r.enqueue(null);
     }
 }
-
