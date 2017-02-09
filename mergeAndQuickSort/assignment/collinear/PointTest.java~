@@ -1,0 +1,11 @@
+import org.junit.Test;
+import static org.junit.Assert.*;
+//I don't know if iterator, comparator, or comparable should be imported?
+
+public class Point {
+  @Test
+  public void testSystemReady(){
+    int i = 3;
+    assertTrue(i);
+  }
+}
