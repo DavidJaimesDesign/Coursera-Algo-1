@@ -33,7 +33,7 @@ public class PointTest {
     Point p2 = new Point(1, 10);
     
     assertEquals("Slope should be positive infinity", p1.slopeTo(p2), Double.POSITIVE_INFINITY, 0.001);
-    assertEquals("Slope should be negative infinity", p1.slopeTo(p1), Double.NEGATIVE_INFINITY, 0.001);
+    assertEquals("Slope should be negative infinity", Double.NEGATIVE_INFINITY,p2.slopeTo(p1), 0.001);
   }
   
   @Test
@@ -52,9 +52,9 @@ public class PointTest {
     Point p3 = new Point(2,4);
     Point p4 = new Point(1,1);
     
-    assertEquals("Should return -1", p1.compareTo(p3), -1);
-    assertEquals("Should return 0", p1.compareTo(p4), 0);
-    assertEquals("Should return 1", p3.compareTo(p1), 1);
+    assertEquals("Should return -1",  -1,  p1.compareTo(p3));
+    assertEquals("Should return 0",   0,   p1.compareTo(p4));
+    assertEquals("Should return 1",   1,   p3.compareTo(p1));
   }
   
   @Test
