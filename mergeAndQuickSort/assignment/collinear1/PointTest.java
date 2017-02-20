@@ -29,11 +29,11 @@ public class PointTest {
   
   @Test 
   public void slopeToInfinites(){
-    Point p1 = new Point(1,1);
-    Point p2 = new Point(1, 10);
+    Point p1 = new Point(131,81);
+    Point p2 = new Point(131, 404);
     
-    assertEquals("Slope should be positive infinity", p1.slopeTo(p2), Double.POSITIVE_INFINITY, 0.001);
-    assertEquals("Slope should be negative infinity", Double.NEGATIVE_INFINITY,p2.slopeTo(p1), 0.001);
+    assertEquals("Slope should be positive infinity", p1.slopeTo(p2), Double.NEGATIVE_INFINITY, 0.001);
+    assertEquals("Slope should be negative infinity", p2.slopeTo(p1), Double.POSITIVE_INFINITY, 0.001);
   }
   
   @Test
